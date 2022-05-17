@@ -4,7 +4,7 @@ There are several naming conventions to consider when writing C# code.
 
 In the following examples, any of the guidance pertaining to elements marked `public` is also applicable when working with `protected` and `protected internal` elements, all of which are  intended to be visible to external callers.
 
-## Pascal case
+## Pascal Case
 
 Use pascal casing ("PascalCasing") when naming a `class`, `record`, or `struct`.
 
@@ -41,7 +41,7 @@ When naming `public` members of types, such as fields, properties, events, metho
 ```csharp
 public class ExampleEvents
 {
-    // A public field, these should be used sparingly
+    // A public field
     public bool IsValid;
 
     // An init-only property
@@ -72,7 +72,7 @@ public record PhysicalAddress(
 
 For more information on positional records, see [Positional syntax for property definition](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/builtin-types/record.md#positional-syntax-for-property-definition).
 
-## Camel case
+## Camel Case
 
 Use camel casing ("camelCasing") when naming `private` or `internal` fields, and prefix them with `_`.
 
@@ -111,6 +111,9 @@ public T SomeMethod<T>(int someNumber, bool isValid)
 
 - Examples that don't include [using directives](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/using-directive.md), use namespace qualifications. If you know that a namespace is imported by default in a project, you don't have to fully qualify the names from that namespace. Qualified names can be broken after a dot (.) if they are too long for a single line, as shown in the following example.
 
-  :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet1":::
+```csharp
+var currentPerformanceCounterCategory = new System.Diagnostics.
+    PerformanceCounterCategory();
+```
 
-- You don't have to change the names of objects that were created by using the Visual Studio designer tools to make them fit other guidelines.
+
