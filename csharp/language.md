@@ -2,25 +2,11 @@
 
 The following sections describe practices that the C# team follows to prepare code examples and samples.
 
-## String Data Type
+## Constants
 
-- Use [string interpolation](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/tokens/interpolated.md) to concatenate short strings, as shown in the following code.
-
-```csharp
-var displayName = $"{nameList[n].LastName}, {nameList[n].FirstName}";
-```
-
-- To append strings in loops, especially when you're working with large amounts of text, use a `System.Text.StringBuilder` object.
-
-```csharp
-var phrase = "lalalalalalalalalalalalalala";
-var manyPhrases = new StringBuilder();
-for (var i = 0; i < 10000; i++)
-{
-    manyPhrases.Append(phrase);
-}
-//Console.WriteLine("tra" + manyPhrases);
-```
+- Variables and fields that can be made `const` should always be made `const`.
+- If `const` isn’t possible, `readonly` can be a suitable alternative.
+- Prefer named constants to magic numbers.
 
 ## Implicitly Typed Local Variables
 
@@ -44,6 +30,21 @@ int var4 = ExampleClass.ResultSoFar();
 var inputInt = Console.ReadLine();
 Console.WriteLine(inputInt);
 ```
+
+- Use of `var` is encouraged if it aids readability by avoiding type names
+    that are noisy, obvious, or unimportant.
+  - Encouraged:
+    - When the type is obvious - e.g. `var apple = new Apple();`, or `var
+        request = Factory.Create<HttpRequest>();`
+    - For transient variables that are only passed directly to other methods -
+        e.g. `var item = GetItem(); ProcessItem(item);`
+  - Discouraged:
+    - When working with basic types - e.g. `var success = true;`
+    - When working with compiler-resolved built-in numeric types - e.g. `var
+        number = 12 * ReturnsFloat();`
+    - When users would clearly benefit from knowing the type - e.g. `var
+        listOfItems = GetList();`
+
 
 - Avoid the use of `var` in place of [dynamic](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/builtin-types/reference-types.md). Use `dynamic` when you want run-time type inference. For more information, see [Using type dynamic (C# Programming Guide)](https://github.com/dotnet/docs/blob/main/docs/csharp/programming-guide/types/using-type-dynamic.md).
 
@@ -78,6 +79,138 @@ Console.WriteLine();
 
   > [!NOTE]
   > Be careful not to accidentally change a type of an element of the iterable collection. For example, it is easy to switch from <xref:System.Linq.IQueryable?displayProperty=nameWithType> to <xref:System.Collections.IEnumerable?displayProperty=nameWithType> in a `foreach` statement, which changes the execution of a query.
+
+## `ref` & `out`
+
+- Use `out` for returns that are not also inputs.
+- Place `out` parameters after all other parameters in the method definition.
+- `ref` should be used rarely, when mutating an input is necessary.
+- Do not use `ref` as an optimisation for passing structs.
+- Do not use `ref` to pass a modifiable container into a method. `ref` is only
+    required when the supplied container needs be replaced with an entirely
+    different container instance.
+
+## Property Styles
+
+- For single line read-only properties, prefer expression body properties
+    (`=>`) when possible.
+- For everything else, use the older `{ get; set; }` syntax.
+
+## Expression Body Syntax
+
+For example:
+
+```c#
+int SomeProperty => _someProperty
+```
+
+- Judiciously use expression body syntax in lambdas and properties.
+- Don’t use on method definitions. 
+- As with methods and other scoped blocks of code, align the closing with the
+    first character of the line that includes the opening brace. See sample code
+    for examples.
+
+## Field Initializers
+
+- Field initializers are generally encouraged.
+
+## Attributes
+
+- Attributes should appear on the line above the field, property, or method
+    they are associated with, separated from the member by a newline.
+- Multiple attributes should be separated by newlines. This allows for easier
+    adding and removing of attributes, and ensures each attribute is easy to
+    search for.
+## Structs & Classes
+
+- Structs are very different from classes:
+
+    *   Structs are always passed and returned by value.
+    *   Assigning a value to a member of a returned struct doesn’t modify the
+        original - e.g. `transform.position.x = 10` doesn’t set the transform’s
+        position.x to 10; `position` here is a property that returns a `Vector3`
+        by value, so this just sets the x parameter of a copy of the original.
+
+- Almost always use a class.
+
+- Consider struct when the type can be treated like other value types - for
+    example, if instances of the type are small and commonly short-lived or are
+    commonly embedded in other objects. Good examples include Vector3,
+    Quaternion and Bounds.
+
+- Note that this guidance may vary from team to team where, for example,
+    performance issues might force the use of structs.
+
+## Lambdas vs Named Methods
+
+- If a lambda is non-trivial (e.g. more than a couple of statements, excluding
+    declarations), or is reused in multiple places, it should probably be a
+    named method.
+
+## IEnumerable vs IList vs IReadOnlyList
+
+- For inputs use the most restrictive collection type possible, for example
+    `IReadOnlyCollection` / `IReadOnlyList` / `IEnumerable` as inputs to methods
+    when the inputs should be immutable.
+- For outputs, if passing ownership of the returned container to the owner,
+    prefer `IList` over `IEnumerable`. If not transferring ownership, prefer the
+    most restrictive option.
+
+## Generators vs Containers
+
+- Use your best judgement, bearing in mind:
+    *   Generator code is often less readable than filling in a container.
+    *   Generator code can be more performant if the results are going to be
+        processed lazily, e.g. when not all the results are needed.
+    *   Generator code that is directly turned into a container via `ToList()`
+        will be less performant than filling in a container directly.
+    *   Generator code that is called multiple times will be considerably slower
+        than iterating over a container multiple times.
+
+
+## Extension Methods
+
+- Only use an extension method when the source of the original class is not
+    available, or else when changing the source is not feasible.
+- Only use an extension method if the functionality being added is a ‘core’
+    general feature that would be appropriate to add to the source of the
+    original class.
+    *   Note - if we have the source to the class being extended, and the
+        maintainer of the original class does not want to add the function,
+        prefer not using an extension method.
+- Only put extension methods into core libraries that are available
+    everywhere - extensions that are only available in some code will become a
+    readability issue.
+- Be aware that using extension methods always obfuscates the code, so err on
+    the side of not adding them.
+
+
+## String Data Type
+
+- Use [string interpolation](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/tokens/interpolated.md) to concatenate short strings, as shown in the following code.
+
+```csharp
+var displayName = $"{nameList[n].LastName}, {nameList[n].FirstName}";
+```
+
+- To append strings in loops, especially when you're working with large amounts of text, use a `System.Text.StringBuilder` object.
+- If performance is a concern, `StringBuilder` will be faster for multiple
+    string concatenations.
+
+```csharp
+var phrase = "lalalalalalalalalalalalalala";
+var manyPhrases = new StringBuilder();
+for (var i = 0; i < 10000; i++)
+{
+    manyPhrases.Append(phrase);
+}
+//Console.WriteLine("tra" + manyPhrases);
+```
+- Be aware that chained `operator+` concatenations will be slower and cause
+    significant memory churn.
+- In general, use whatever is easiest to read, particularly for logging and
+    assert messages.
+
 
 ## Unsigned Data Types
 
@@ -214,7 +347,7 @@ byte charset3 = font3.GdiCharSet;
 
 ## `&&` & `||` Operators
 
-To avoid exceptions and increase performance by skipping unnecessary comparisons, use [`&&`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#conditional-logical-and-operator-) instead of [`&`]https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#logical-and-operator-) and [`||`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#conditional-logical-or-operator-) instead of [`|`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#logical-or-operator-) when you perform comparisons, as shown in the following example.
+To avoid exceptions and increase performance by skipping unnecessary comparisons, use [`&&`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#conditional-logical-and-operator-) instead of [`&`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#logical-and-operator-) and [`||`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#conditional-logical-or-operator-) instead of [`|`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#logical-or-operator-) when you perform comparisons, as shown in the following example.
 
 ```csharp
 Console.Write("Enter a dividend: ");
@@ -253,10 +386,10 @@ The preceding declarations are equivalent to the following declaration.
 ExampleClass instance2 = new ExampleClass();
 ```
 
-- Use object initializers to simplify object creation, as shown in the following example.
+- Use object initializers including the `new` keyword and the class with opening and closing parentheses to simplify object creation & instantiation.
 
 ```csharp
-var instance3 = new ExampleClass { Name = "Desktop", ID = 37414,
+var instance3 = new ExampleClass() { Name = "Desktop", ID = 37414,
 Location = "Redmond", Age = 2.3 };
 ```
 
@@ -268,6 +401,49 @@ instance4.Name = "Desktop";
 instance4.ID = 37414;
 instance4.Location = "Redmond";
 instance4.Age = 2.3;
+```
+
+- Object Initializer Syntax is fine for ‘plain old data’ types.
+- Avoid using this syntax for classes or structs with constructors to prevent nesting within initializers
+- If splitting across multiple lines, indent one block level.
+
+## Argument Naming
+
+When the meaning of a function argument is nonobvious, consider one of the
+following remedies:
+
+*   If the argument is a literal constant, and the same constant is used in
+    multiple function calls in a way that tacitly assumes they're the same, use
+    a named constant to make that constraint explicit, and to guarantee that it
+    holds.
+*   Consider changing the function signature to replace a `bool` argument with
+    an `enum` argument. This will make the argument values self-describing.
+*   Replace large or complex nested expressions with named variables.
+*   Consider using
+    [Named Arguments](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments)
+    to clarify argument meanings at the call site.
+*   For functions that have several configuration options, consider defining a
+    single class or struct to hold all the options and pass an instance of that.
+    This approach has several advantages. Options are referenced by name at the
+    call site, which clarifies their meaning. It also reduces function argument
+    count, which makes function calls easier to read and write. As an added
+    benefit, call sites don't need to be changed when another option is added.
+
+Consider the following example:
+
+```c#
+// Bad - what are these arguments?
+DecimalNumber product = CalculateProduct(values, 7, false, null);
+```
+
+versus:
+
+```c#
+// Good
+ProductOptions options = new ProductOptions();
+options.PrecisionDecimals = 7;
+options.UseCache = CacheUsage.DontUseCache;
+DecimalNumber product = CalculateProduct(values, options, completionDelegate: null);
 ```
 
 ## Event Handling
@@ -358,3 +534,10 @@ var scoreQuery = from student in students
                  where score > 90
                  select new { Last = student.LastName, score };
 ```
+- In general, prefer single line LINQ calls and imperative code, rather than
+    long chains of LINQ. Mixing imperative code and heavily chained LINQ is
+    often hard to read.
+- Prefer member extension methods over SQL-style LINQ keywords - e.g. prefer
+    `myList.Where(x)` to `myList where x`.
+- Avoid `Container.ForEach(...)` for anything longer than a single statement.
+
