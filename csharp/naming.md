@@ -6,7 +6,9 @@ In the following examples, any of the guidance pertaining to elements marked `pu
 
 ## Pascal Case
 
-Use pascal casing ("PascalCasing") when naming a `class`, `record`, or `struct`.
+### Code
+
+Use pascal casing ("PascalCasing") when naming a `class`, `record`, `public` field, `public` property, `namespace`, `enum`, or `struct`.
 
 ```csharp
 public class DataService
@@ -72,9 +74,15 @@ public record PhysicalAddress(
 
 For more information on positional records, see [Positional syntax for property definition](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/builtin-types/record.md#positional-syntax-for-property-definition).
 
+
+### Files
+
+- Filenames and directory names are `PascalCase`, e.g. `MyFile.cs`.
+- Where possible the file name should be the same as the name of the main class in the file, e.g. `MyClass.cs`.
+
 ## Camel Case
 
-Use camel casing ("camelCasing") when naming `private` or `internal` fields, and prefix them with `_`.
+Use camel casing ("camelCasing") when naming `private` fields, and prefix them with `_`.
 
 ```csharp
 public class DataService
@@ -86,26 +94,29 @@ public class DataService
 > [!TIP]
 > When editing C# code that follows these naming conventions in an IDE that supports statement completion, typing `_` will show all of the object-scoped members.
 
-When working with `static` fields that are `private` or `internal`, use the `s_` prefix and for thread static use `t_`.
+Naming convention is unaffected by modifiers such as `const`, `static`, `readonly`, etc.
+
 
 ```csharp
 public class DataService
 {
-    private static IWorkerQueue s_workerQueue;
+    private static IWorkerQueue _workerQueue;
 
     [ThreadStatic]
-    private static TimeSpan t_timeSpan;
+    private static TimeSpan _timeSpan;
 }
 ```
 
-When writing method parameters, use camel casing.
+When writing method parameters and local variables use camel casing.
 
 ```csharp
 public T SomeMethod<T>(int someNumber, bool isValid)
 {
+    var someLocalVariable = 14;
 }
 ```
 
+For casing, a "word" is anything written without internal spaces, including acronyms. For example, `MyRpc` instead of ~~`MyRPC`~~.
 
 ## Additional naming conventions
 
