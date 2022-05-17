@@ -4,7 +4,7 @@
 
 Heavily based and adapted from the style guides of:
 - [Microsoft](https://github.com/dotnet/docs/blob/main/docs/csharp/fundamentals/coding-style/coding-conventions.md)
-- [Google](https://github.com/google/styleguide/blob/gh-pages/csharp-style.md) 
+- [Google](https://github.com/google/styleguide/blob/gh-pages/csharp-style.md)
 
 ## Reasons
 
@@ -19,7 +19,7 @@ Coding conventions:
 
 ## Index
 
-- [Commenting Conventions](./commenting)
+- [Commenting Conventions](./commenting.md)
 - [Language Guidelines](./language.md)
 - [Layout Conventions](./layout.md)
 - [Naming Conventions](./naming.md)

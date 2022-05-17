@@ -4,7 +4,7 @@ The following sections describe practices that the C# team follows to prepare co
 
 ## String data type
 
-- Use [string interpolation](../../language-reference/tokens/interpolated.md) to concatenate short strings, as shown in the following code.
+- Use [string interpolation](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/tokens/interpolated.md) to concatenate short strings, as shown in the following code.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet6":::
 
@@ -14,11 +14,11 @@ The following sections describe practices that the C# team follows to prepare co
 
 ## Implicitly typed local variables
 
-- Use [implicit typing](../../programming-guide/classes-and-structs/implicitly-typed-local-variables.md) for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
+- Use [implicit typing](https://github.com/dotnet/docs/blob/main/docs/csharp/programming-guide/classes-and-structs/implicitly-typed-local-variables.md) for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet8":::
 
-- Don't use [var](../../language-reference/keywords/var.md) when the type is not apparent from the right side of the assignment. Don't assume the type is clear from a method name. A variable type is considered clear if it's a `new` operator or an explicit cast.
+- Don't use [var](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/var.md) when the type is not apparent from the right side of the assignment. Don't assume the type is clear from a method name. A variable type is considered clear if it's a `new` operator or an explicit cast.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet9":::
 
@@ -26,7 +26,7 @@ The following sections describe practices that the C# team follows to prepare co
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet10":::
 
-- Avoid the use of `var` in place of [dynamic](../../language-reference/builtin-types/reference-types.md). Use `dynamic` when you want run-time type inference. For more information, see [Using type dynamic (C# Programming Guide)](../../programming-guide/types/using-type-dynamic.md).
+- Avoid the use of `var` in place of [dynamic](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/builtin-types/reference-types.md). Use `dynamic` when you want run-time type inference. For more information, see [Using type dynamic (C# Programming Guide)](https://github.com/dotnet/docs/blob/main/docs/csharp/programming-guide/types/using-type-dynamic.md).
 
 - Use implicit typing to determine the type of the loop variable in [`for`](../../language-reference/statements/iteration-statements.md#the-for-statement) loops.
 
@@ -34,7 +34,7 @@ The following sections describe practices that the C# team follows to prepare co
 
     :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet7":::
 
-- Don't use implicit typing to determine the type of the loop variable in [`foreach`](../../language-reference/statements/iteration-statements.md#the-foreach-statement) loops.
+- Don't use implicit typing to determine the type of the loop variable in [`foreach`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/statements/iteration-statements.md#the-foreach-statement) loops.
 
   The following example uses explicit typing in a `foreach` statement.
 
@@ -63,7 +63,7 @@ If you specify an array size, you have to initialize the elements one at a time.
 
 ## Delegates
 
-Use [`Func<>` and `Action<>`](../../../standard/delegates-lambdas.md) instead of defining delegate types. In a class, define the delegate method.
+Use [`Func<>` and `Action<>`](https://github.com/dotnet/docs/blob/main/docs/standard/delegates-lambdas.md) instead of defining delegate types. In a class, define the delegate method.
 
 :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet14a":::
 
@@ -85,11 +85,11 @@ The following declaration uses the full syntax.
 
 ## `try`-`catch` and `using` statements in exception handling
 
-- Use a [try-catch](../../language-reference/keywords/try-catch.md) statement for most exception handling.
+- Use a [try-catch](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/try-catch.md) statement for most exception handling.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet16":::
 
-- Simplify your code by using the C# [using statement](../../language-reference/keywords/using-statement.md). If you have a [try-finally](../../language-reference/keywords/try-finally.md) statement in which the only code in the `finally` block is a call to the <xref:System.IDisposable.Dispose%2A> method, use a `using` statement instead.
+- Simplify your code by using the C# [using statement](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/using-statement.md). If you have a [try-finally](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/try-finally.md) statement in which the only code in the `finally` block is a call to the <xref:System.IDisposable.Dispose%2A> method, use a `using` statement instead.
 
   In the following example, the `try`-`finally` statement only calls `Dispose` in the `finally` block.
 
@@ -99,13 +99,13 @@ The following declaration uses the full syntax.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet17b":::
 
-  In C# 8 and later versions, use the new [`using` syntax](../../language-reference/keywords/using-statement.md) that doesn't require braces:
+  In C# 8 and later versions, use the new [`using` syntax](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/using-statement.md) that doesn't require braces:
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet17c":::
 
 ## `&&` and `||` operators
 
-To avoid exceptions and increase performance by skipping unnecessary comparisons, use [`&&`](../../language-reference/operators/boolean-logical-operators.md#conditional-logical-and-operator-) instead of [`&`](../../language-reference/operators/boolean-logical-operators.md#logical-and-operator-) and [`||`](../../language-reference/operators/boolean-logical-operators.md#conditional-logical-or-operator-) instead of [`|`](../../language-reference/operators/boolean-logical-operators.md#logical-or-operator-) when you perform comparisons, as shown in the following example.
+To avoid exceptions and increase performance by skipping unnecessary comparisons, use [`&&`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#conditional-logical-and-operator-) instead of [`&`]https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#logical-and-operator-) and [`||`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#conditional-logical-or-operator-) instead of [`|`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/operators/boolean-logical-operators.md#logical-or-operator-) when you perform comparisons, as shown in the following example.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet18":::
 
@@ -145,7 +145,7 @@ The lambda expression shortens the following traditional definition.
 
 ## Static members
 
-Call [static](../../language-reference/keywords/static.md) members by using the class name: *ClassName.StaticMember*. This practice makes code more readable by making static access clear.  Don't qualify a static member defined in a base class with the name of a derived class.  While that code compiles, the code readability is misleading, and the code may break in the future if you add a static member with the same name to the derived class.
+Call [static](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/static.md) members by using the class name: *ClassName.StaticMember*. This practice makes code more readable by making static access clear.  Don't qualify a static member defined in a base class with the name of a derived class.  While that code compiles, the code readability is misleading, and the code may break in the future if you add a static member with the same name to the derived class.
 
 ## LINQ queries
 
@@ -165,12 +165,12 @@ Call [static](../../language-reference/keywords/static.md) members by using the 
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet25":::
 
-- Align query clauses under the [`from`](../../language-reference/keywords/from-clause.md) clause, as shown in the previous examples.
+- Align query clauses under the [`from`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/from-clause.md) clause, as shown in the previous examples.
 
-- Use [`where`](../../language-reference/keywords/where-clause.md) clauses before other query clauses to ensure that later query clauses operate on the reduced, filtered set of data.
+- Use [`where`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/where-clause.md) clauses before other query clauses to ensure that later query clauses operate on the reduced, filtered set of data.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet29":::
 
-- Use multiple `from` clauses instead of a [`join`](../../language-reference/keywords/join-clause.md) clause to access inner collections. For example, a collection of `Student` objects might each contain a collection of test scores. When the following query is executed, it returns each score that is over 90, along with the last name of the student who received the score.
+- Use multiple `from` clauses instead of a [`join`](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/join-clause.md) clause to access inner collections. For example, a collection of `Student` objects might each contain a collection of test scores. When the following query is executed, it returns each score that is over 90, along with the last name of the student who received the score.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet30":::

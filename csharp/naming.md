@@ -70,7 +70,7 @@ public record PhysicalAddress(
     string ZipCode);
 ```
 
-For more information on positional records, see [Positional syntax for property definition](../../language-reference/builtin-types/record.md#positional-syntax-for-property-definition).
+For more information on positional records, see [Positional syntax for property definition](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/builtin-types/record.md#positional-syntax-for-property-definition).
 
 ## Camel case
 
@@ -106,11 +106,10 @@ public T SomeMethod<T>(int someNumber, bool isValid)
 }
 ```
 
-For more information on C# naming conventions, see [C# Coding Style](https://github.com/dotnet/runtime/blob/main/docs/coding-guidelines/coding-style.md).
 
 ## Additional naming conventions
 
-- Examples that don't include [using directives](../../language-reference/keywords/using-directive.md), use namespace qualifications. If you know that a namespace is imported by default in a project, you don't have to fully qualify the names from that namespace. Qualified names can be broken after a dot (.) if they are too long for a single line, as shown in the following example.
+- Examples that don't include [using directives](https://github.com/dotnet/docs/blob/main/docs/csharp/language-reference/keywords/using-directive.md), use namespace qualifications. If you know that a namespace is imported by default in a project, you don't have to fully qualify the names from that namespace. Qualified names can be broken after a dot (.) if they are too long for a single line, as shown in the following example.
 
   :::code language="csharp" source="./snippets/coding-conventions/program.cs" id="Snippet1":::
 
