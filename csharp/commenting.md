@@ -1,13 +1,19 @@
 # Commenting Conventions
 
 - Place the comment on a separate line, not at the end of a line of code.
-- Align the comment with the block or statement it is describing.
-- Begin comment text with an uppercase letter.
-- End comment text with a period.
-- Insert one space between the comment delimiter (`//`) and the comment text, as shown in the following example.
 
 ```csharp
-// The following declaration creates a query, but does not run it.
+// Gets the Universal Answer from the datastore (good)
+int answer = DataService.ReadUniversalAnswer(); // Get universal answer (bad)
+```
+
+- Align the comment with the block or statement it is describing.
+- Begin comment text with an uppercase letter.
+- Insert one space between the comment delimiter (`//`) and the comment text.
+
+```csharp
+// The following declaration creates a query, but does not run it (good)
+//Declares query without running it (bad)
 ```
 - Wrap long comments to the next line as needed.
 

@@ -19,7 +19,7 @@ Coding conventions:
 
 ## Index
 
-- [Commenting Conventions](./commenting.md)
-- [Language Guidelines](./language.md)
-- [Layout Conventions](./layout.md)
-- [Naming Conventions](./naming.md)
+- [Commenting](./commenting.md)
+- [Language](./language.md)
+- [Layout](./layout.md)
+- [Naming](./naming.md)
