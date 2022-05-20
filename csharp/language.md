@@ -520,10 +520,4 @@ public bool Decision()
  
     return decision; // should be single source of truth
 }
-public bool Decision() 
-{ 
-    bool decision = DecisionA() || DecisionB() || DecisionC(); 
-    
-    return decision; // should be single source of truth
-}
 ```
