@@ -500,18 +500,30 @@ public bool Decision()
         }
     } else {
       return false; // avoid it.
-    } else {
-        return false;
     }
- 
+
     return decision; // should be single source of truth
 }
 
 // good
 public bool Decision() 
 { 
-   // TODO: Soahail
+    bool decision = DecisionA();
+
+    if ( !decision ) {
+        decision = DecisionB();
+
+        if ( !decision ) {
+          decision = DecisionC();
+        }
+    }
  
+    return decision; // should be single source of truth
+}
+public bool Decision() 
+{ 
+    bool decision = DecisionA() || DecisionB() || DecisionC(); 
+    
     return decision; // should be single source of truth
 }
 ```

@@ -36,7 +36,8 @@ public class ExampleEvents
         string StateOrProvince,
         string ZipCode);
 
-    // TODO: mike document this better in text 
+    // (infrequent) Manually backed private field variables should match
+    // their public getter/setter 
     private string _FooBar;
     public string FooBar
     {

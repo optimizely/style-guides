@@ -1,5 +1,7 @@
 # Commenting Conventions
 
+## Double Slash (`//`)
+
 - Place the comment on a separate line, not at the end of a line of code.
 
 ```csharp
@@ -22,7 +24,25 @@ int answer = DataService.ReadUniversalAnswer(); // Get universal answer (bad)
 // the Execute() method is called on the Query object.
 ```
 
-- Do not create formatted blocks of asterisks around comments unless the file needs a copyright/legal disclaimer before the source code begins or for multi-line testing scenarios
+## Triple Slash (`///`)
+
+- Ensure all public members have the necessary XML comments beginning with three forward slashes providing appropriate descriptions about their behavior.
+
+```csharp
+/// <summary>
+/// Generate a hash value to be used in determining which variation the user will be put in
+/// </summary>
+/// <param name="bucketingKey">string value used for the key of the murmur hash.</param>
+/// <returns>integer Unsigned value denoting the hash value for the user</returns>
+```
+- To-do items should be marked with `/// TODO:`
+- Temporary workarounds should marked with `/// KLUDGE:`
+
+## Comment Blocks (`/* */`)
+
+- Do not create formatted blocks of asterisks around comments unless:
+  - the file needs a copyright/legal disclaimer before the source code begins
+  - for multi-line testing scenarios
 
 ```csharp
 /* 
@@ -42,21 +62,8 @@ int answer = DataService.ReadUniversalAnswer(); // Get universal answer (bad)
  */
 
  /*
- * Also for multi-line testing scenarios
+ * 1. Build the solution
+ * 2. Run lint
+ * 3. Run the test scenarios
  */
  ```
-
-- Ensure all public members have the necessary XML comments beginning with three forward slashes (`///`) providing appropriate descriptions about their behavior.
-
-```csharp
-/// <summary>
-/// Generate a hash value to be used in determining which variation the user will be put in
-/// </summary>
-/// <param name="bucketingKey">string value used for the key of the murmur hash.</param>
-/// <returns>integer Unsigned value denoting the hash value for the user</returns>
-```
-
-- Workarounds should be commented  `/// KLUDGE:`
-
-// TODO: talk about with examples `/// TODO:`
-- To-do 
