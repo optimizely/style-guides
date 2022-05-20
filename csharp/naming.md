@@ -36,6 +36,20 @@ public class ExampleEvents
         string StateOrProvince,
         string ZipCode);
 
+    // TODO: mike document this better in text 
+    private string _FooBar;
+    public string FooBar
+    {
+        get 
+        {
+            return _FooBar;
+        }
+        private set
+        {
+            _FooBar = value;
+        }
+    }
+
     // Method
     public void StartEventProcessing()
     {
@@ -62,20 +76,15 @@ Use camel casing ("camelCasing") when naming `private` fields, and prefix them w
 public class DataService
 {
     private IWorkerQueue _workerQueue;
-}
 ```
 
-Naming convention is unaffected by modifiers such as `const`, `static`, `readonly`, etc.
+Naming convention is unaffected by modifiers such as `readonly`.
 
 
 ```csharp
 public class DataService
 {
-    private static IWorkerQueue _workerQueue;
-
     private readonly int _maxWorkers;
-
-    private const int _maxConnections = 10;
 }
 ```
 
@@ -89,3 +98,11 @@ public T SomeMethod<T>(int someNumber, bool isValid)
 ```
 
 For casing, a "word" is anything written without internal spaces, including acronyms. For example, `MyRpc` instead of ~~`MyRPC`~~.
+
+## CAPS_SNAKE Case
+
+```csharp
+    private const string MY_VAR = "Hi";
+
+    public static int UNIVERSAL_ANSWER = 42;
+```

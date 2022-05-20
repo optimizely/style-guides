@@ -11,9 +11,10 @@
     var circleArea =  3.141592653589 * Math.Pow(radius, 2);
 
     // Set a constant instead 
-    const float piEstimation = 3.141592653589;
-    var circleCircumference = piEstimation * (radius * 2);
+    const float PI_ESTIMATION = 3.141592653589;
+    var circleCircumference = PI_ESTIMATION * (radius * 2);
 ```
+- Declare const variables at the top of the block using them. 
 
 ## Implicitly Typed Local Variables
 
@@ -50,9 +51,6 @@ Console.WriteLine(inputInt);
     - When users would clearly benefit from knowing the type - e.g. `var
         listOfItems = GetList();`
 
-
-- Explicitly use `dynamic` when you want run-time type inference.
-
 - Use implicit typing to determine the type of the loop variable in [`for`](../../language-reference/statements/iteration-statements.md#the-for-statement) loops.
 
 ```csharp
@@ -77,16 +75,6 @@ foreach (char ch in laugh)
 }
 ```
 
-## `ref` & `out`
-
-- Use `out` for returns that are not also inputs.
-- Place `out` parameters after all other parameters in the method definition.
-- `ref` should be used rarely, when mutating an input is necessary.
-- Do not use `ref` as an optimisation for passing structs.
-- Do not use `ref` to pass a modifiable container into a method. `ref` is only
-    required when the supplied container needs be replaced with an entirely
-    different container instance.
-
 ## Property Styles
 
 - For single line read-only properties, prefer expression body properties
@@ -98,7 +86,7 @@ foreach (char ch in laugh)
 For example:
 
 ```c#
-int SomeProperty => _someProperty
+int SomeProperty => _someProperty;
 ```
 
 - Judiciously use expression body syntax in lambdas and properties.
@@ -109,18 +97,35 @@ int SomeProperty => _someProperty
 
 ## Field Initializers
 
+- Initialize auto-implemented properties only for primiative types.
 - Field initializers are generally encouraged.
+
+```csharp
+// Do not init auto-implemented properties
+public Decision MyValue { get; set; } = new Decision("yes");
+// Remove need for the constructor
+private int _myValueMaxSize;
+public MyClass()
+{
+    _myValueMaxSize = 50;
+}
+
+// Good
+public int MyValue { get; set; } = 42; 
+private int _myValueMaxSize = 50;
+```
 
 ## Attributes
 
 - Attributes should appear on the line above the field, property, or method they are associated with, separated from the member by a newline.
 - Multiple attributes should be separated by newlines. This allows for easier adding and removing of attributes, and ensures each attribute is easy to search for.
+
 ## Structs & Classes
 
 - Structs are very different from classes:
 
-    *   Structs are always passed and returned by value.
-    *   Assigning a value to a member of a returned struct doesn’t modify the
+    - Structs are always passed and returned by value.
+    - Assigning a value to a member of a returned struct doesn’t modify the
         original - e.g. `transform.position.x = 10` doesn’t set the transform’s
         position.x to 10; `position` here is a property that returns a `Vector3`
         by value, so this just sets the x parameter of a copy of the original.
@@ -466,5 +471,47 @@ var scoreQuery = from student in students
     long chains of LINQ. Mixing imperative code and heavily chained LINQ is
     often hard to read.
 - Prefer member extension methods over SQL-style LINQ keywords - e.g. prefer
-    `myList.Where(x)` to `myList where x`.
+    `myList.Where(x => x > 5)` to `myList where x`.
 - Avoid `Container.ForEach(...)` for anything longer than a single statement.
+
+### Return Statements
+
+- Assign eventual return values to a variable then return the variable.
+
+```csharp
+    string a = FunctionA();
+    return a;
+```
+- Try to have only 1 return statement at the end of the method.
+
+```csharp
+// bad
+public bool Decision() 
+{ 
+    bool decision = DecisionA();
+
+    if ( !decision ) {
+        decision = DecisionB();
+
+        if ( !decision ) {
+          decision = DecisionC();
+        } else {
+            return false; //avoid it.
+        }
+    } else {
+      return false; // avoid it.
+    } else {
+        return false;
+    }
+ 
+    return decision; // should be single source of truth
+}
+
+// good
+public bool Decision() 
+{ 
+   // TODO: Soahail
+ 
+    return decision; // should be single source of truth
+}
+```

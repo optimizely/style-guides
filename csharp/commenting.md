@@ -22,7 +22,7 @@ int answer = DataService.ReadUniversalAnswer(); // Get universal answer (bad)
 // the Execute() method is called on the Query object.
 ```
 
-- Do not create formatted blocks of asterisks around comments unless the file needs a copyright/legal disclaimer before the source code begins.
+- Do not create formatted blocks of asterisks around comments unless the file needs a copyright/legal disclaimer before the source code begins or for multi-line testing scenarios
 
 ```csharp
 /* 
@@ -40,6 +40,10 @@ int answer = DataService.ReadUniversalAnswer(); // Get universal answer (bad)
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+ /*
+ * Also for multi-line testing scenarios
+ */
  ```
 
 - Ensure all public members have the necessary XML comments beginning with three forward slashes (`///`) providing appropriate descriptions about their behavior.
@@ -51,3 +55,8 @@ int answer = DataService.ReadUniversalAnswer(); // Get universal answer (bad)
 /// <param name="bucketingKey">string value used for the key of the murmur hash.</param>
 /// <returns>integer Unsigned value denoting the hash value for the user</returns>
 ```
+
+- Workarounds should be commented  `/// KLUDGE:`
+
+// TODO: talk about with examples `/// TODO:`
+- To-do 
