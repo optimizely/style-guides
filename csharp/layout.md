@@ -66,65 +66,87 @@ class X
 
 
 ```csharp
-using System;                                       // `using` goes at the top, outside the
-                                                    // namespace.
+// `using` goes at the top, outside the namespace.
+using System;
 
-namespace MyNamespace;                           // Namespaces are PascalCase and file scoped.
-                                                    // Indent after namespace.
-public interface IMyInterface                    // Interfaces start with 'I'
+// Namespaces are PascalCase and file scoped (unless unsupported).
+namespace MyNamespace;                           
+
+// Interfaces start with 'I'
+public interface IMyInterface
 {
-  public int Calculate(float value, float exp);   // Methods are PascalCase
-                                                  // ...and space after comma.
+  // Methods are PascalCase and space after comma.
+  public int Calculate(float value, float exp);
 }
 
-public enum MyEnum                               // Enumerations are PascalCase.
+// Enumerations are PascalCase.
+public enum MyEnum                               
 {
-  No = 0,                                        // Enumerators are PascalCase and have explict backing integer declared
-  Yes = 1,                                        // ensuring a default 0 value (make it your "unset" value when in doubt) 
+  // Enumerators are PascalCase and have explict backing integer declared
+  // ensuring a default 0 value (make it your "unset" value when in doubt)                                    
+  No = 0,
+  // Prefer trailing commas in declarations and initializers
+  Yes = 1,                                        
 }
 
-public class MyClass                             // Classes are PascalCase.
+// Classes are PascalCase.
+public class MyClass
 {
-  public int Foo = 0;                             // Public member variables are
-                                                  // PascalCase.
-  public bool NoCounting = false;                 // Field initializers are encouraged.
+  // Public member variables are PascalCase
+  public int Foo = 0;
+
+  // Field initializers are encouraged
+  public bool NoCounting = false;     
+
   private class Results {
     public int NumNegativeResults = 0;
     public int NumPositiveResults = 0;
   }
-  private Results _results;                       // Private member variables are
-                                                  // _camelCase.
-  public static int NumTimesCalled = 0;
-  private const int _bar = 100;                   // const does not affect naming
-                                                  // convention.
-  private int[] _someTable =                     // Container initializers use a 2
+  
+  private int[] _someTable =                     
   {
-    2, 3, 4,                                      // space indent.
+    // Container initializers use a 2 space indent
+    2, 3, 4,
   }
+  
+  // Private member variables are _camelCase.
+  private Results _results;
+  
+  // const does not affect naming convention.
+  private const int _bar = 100;
+
+  public static int NumTimesCalled = 0;
 
   public MyClass() 
   {
     _results = new Results() 
     {
-      NumNegativeResults = 1,                     // Object initializers use a 2 space
-      NumPositiveResults = 1,                     // indent.
+      // Object initializers use a 2 space indent.
+      NumNegativeResults = 1,
+      NumPositiveResults = 1,
     };
   }
 
-  public int CalculateValue(int mulNumber)       // No line break before opening brace.
+  public int CalculateValue(int mulNumber)  
   {
-    var resultValue = Foo * mulNumber;            // Local variables are camelCase.
+    // Local variables are camelCase.
+    var resultValue = Foo * mulNumber;    
+
     NumTimesCalled++;
+
     Foo += _bar;
 
-    if (!NoCounting)                             // No space after unary operator and
+    // No space after unary operator and space after 'if'.
+    if (!NoCounting)                             
     {
-                                                  // space after 'if'.
-      if (resultValue < 0)                       // Braces used even when optional and
-      {
-                                                  // spaces around comparison operator.
+      
+      // Spaces around comparison operator
+      if (resultValue < 0)                       
+      {// Curly braces are always used even when optional and
         _results.NumNegativeResults++;
-      } else if (resultValue > 0)                // No newline between brace and else.
+      } 
+      // No newline between brace and else.
+      else if (resultValue > 0)                
       {
         _results.NumPositiveResults++;
       }
@@ -147,10 +169,10 @@ public class MyClass                             // Classes are PascalCase.
 
     // If defining after a continuation line break, indent the whole body.
     Func<int, int, long> difference2 =
-        (x, y) => {
-          long diff = (long)x - y;
-          return diff >= 0 ? diff : -diff;
-        };
+      (x, y) => {
+        long diff = (long)x - y;
+        return diff >= 0 ? diff : -diff;
+      };
 
     // Inline lambda arguments also follow these rules. Prefer a leading newline before
     // groups of arguments if they include lambdas.
@@ -161,11 +183,12 @@ public class MyClass                             // Classes are PascalCase.
         });
   }
 
-  void DoNothing() {}                             // Empty blocks may be concise.
+  // Empty blocks may be concise.
+  void DoNothing() {}                             
 
   // If possible, wrap arguments by aligning newlines with the first argument.
   void AVeryLongFunctionNameThatCausesLineWrappingProblems(int longArgumentName,
-                                                            int p1, int p2) {}
+                                                           int p1, int p2) {}
 
   // If aligning argument lines with the first argument doesn't fit, or is difficult to
   // read, wrap all arguments on new lines with a 4 space indent.
@@ -173,12 +196,14 @@ public class MyClass                             // Classes are PascalCase.
       int longArgumentName, int longArgumentName2, int longArgumentName3) {}
 
   void CallingLongFunctionName() 
-  {
+  {    
     int veryLongArgumentName = 1234;
     int shortArg = 1;
+
     // If possible, wrap arguments by aligning newlines with the first argument.
     AnotherLongFunctionNameThatCausesLineWrappingProblems(shortArg, shortArg,
                                                           veryLongArgumentName);
+
     // If aligning argument lines with the first argument doesn't fit, or is difficult to
     // read, wrap all arguments on new lines with a 4 space indent.
     AnotherLongFunctionNameThatCausesLineWrappingProblems(
@@ -187,7 +212,7 @@ public class MyClass                             // Classes are PascalCase.
 }
 ```
 
-- Use the team's Code Editor settings (smart indenting, four-character indents, tabs saved as spaces).
+- Use the team's IDE settings (smart indenting, four-character indents, tabs saved as spaces).
 - If continuation lines are not indented automatically, indent them one tab stop (four spaces).
 - Add at least one blank line between method definitions and property definitions.
 - Use parentheses to make clauses in an expression apparent, as shown in the following code.
